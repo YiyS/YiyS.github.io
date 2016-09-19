@@ -1,0 +1,85 @@
+---
+layout: post
+title:  "CHIP-seq"
+date:   2016-08-28
+desc: "NGS最后一章。"
+keywords: "CHIP-seq"
+categories: [NGS]
+tags: [sequencing]
+icon: icon-microscope
+---
+
+
+### 数据下载
+
+* SRA
+
+* ENA
+
+`````````````
+	> ~/.aspera/connect/bin/ascp -i ~/asperaweb_id_dsa.openssh \
+	> -Tr -Q -l 100M -L- era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq\
+	> /SRR392/005/SRR3922075/SRR3922075.fastq.gz /home/alleine/sdb1
+	> 
+	> ~/.aspera/connect/bin/ascp -i ~/asperaweb_id_dsa.openssh \
+	> -Tr -Q -l 100M -L- era-fasp@fasp.sra.ebi.ac.uk:/vol1/fastq\
+	> /SRR392/004/SRR3922074/SRR3922074.fastq.gz /home/alleine/sdb1
+````````````````````
+
+### QC
+
+````````````````
+	> ~/FastQC/fastqc -f fastq -o fastqcresult SRR3922075.fastq.gz
+	> ~/FastQC/fastqc -f fastq -o fastqcresult SRR3922074.fastq.gz
+	>
+	> fastq_quality_filter -q 20 -p 70  -v -i SRR3922074.fastq -o SRR3922074.filt.fastq.gz -z
+	> fastq_quality_filter -q 20 -p 70  -v -i SRR3922075.fastq -o SRR3922075.filt.fastq.gz -z
+	> #FASTX似乎不支持多线程？这里运行有点慢，可以试试其他QC软件
+``````````````````
+
+### Mapping
+
+````````````````
+	> bowtie2 -x ~/hg19/hg19 -U SRR3922074.filt.fastq.gz -S SRR3922074.sam -p 16
+	> bowtie2 -x ~/hg19/hg19 -U SRR3922075.filt.fastq.gz -S SRR3922075.sam -p 16
+	> samtools view -bS SRR3922074.sam > SRR3922074.bam
+	> samtools view -bS SRR3922075.sam > SRR3922075.bam
+``````````````````
+
+### Calling Peak
+
+* 这里使用MACS2
+
+* pip安装最简单快捷，GitHub上源码安装可能出错
+
+````````````````
+	> pip install MACS2
+	> #设置环境变量，这里我安装的MACS2放在了/home/alleine/.local
+	> export PATH=$PATH:/home/alleine/.local/bin
+	> export PYTHONPATH=$PYTHONPATH:/home/alleine/.local/lib/python2.7/site-packages
+	> macs2 callpeak -t SRR3922074.bam -c SRR3922075.bam -f BAM -g hs -n test -q 0.01 --outdir ~/sdb1/CALL_PEAK -B
+	> #结果是6个文件
+````````````````````
+* MACS如下
+
+````````````````
+	>  macs14 -t SRR3922074.bam -c SRR3922075.bam -f BAM -g hs -w -S -n SRR
+``````````````````````
+
+* MACS2得到的文件
+
+![](http://github.com/YiyS/YiyS.github.io/raw/master/_images/CHIPSEQ1.JPG)
+
+* MACS得到的文件
+
+![](http://github.com/YiyS/YiyS.github.io/raw/master/_images/CHIPSEQ2.JPG)
+
+### 使用CEAS进行可视化
+``````````````
+	> ceas --name=SRR004_ceas --pf-res=20 --gn-group-names='test' -g ~/Downloads/hg19.refGene -b SRR_summits.bed -w SRR_MACS_wiggle/treat/SRR_treat_afterfiting_all.wig
+```````````````````````````````````
+
+
+
+
+
