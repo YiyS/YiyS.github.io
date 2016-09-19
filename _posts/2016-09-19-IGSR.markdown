@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "use IGSR instead of 1000Genomes"
-date:   2016-09-18
+date:   2016-09-19
 desc: "1000Genomes 升级了"
 keywords: "NGS"
 categories: [NGS]
