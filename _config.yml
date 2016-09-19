@@ -1,0 +1,59 @@
+# Welcome to Jekyll!
+
+# Website settings
+title: "Alleine"
+description: "Alleine's blog,use Jekyll and github pages."
+keywords: "Alleine,Jekyll,github,gh-pages"
+baseurl: "/"
+url: "yiiyan.me"
+# url: "http://127.0.0.1:4000"
+
+# blog img path
+img_path: 'http://github.com/YiyS/YiyS.github.io/static/img/blog'
+
+# author
+author:
+  name: 'Alleine'
+  first_name: 
+  last_name: 
+  email: 'alleines11@gmail.com'
+  facebook_username:
+  github_username: 'YiyS'
+  head_img: 'static/img/landing/Jack.jpg'
+
+
+# landing page
+landing:
+  home: 'Home'
+  about: 'About'
+  career: 'Career'
+  skills: 'Skills'
+  blog: 'Blog'
+  
+
+# blog index
+index:
+  home: 'Home'
+  linux: 'Linux'
+  r: 'R'
+  ngs: 'NGS'
+
+
+
+# baidu analytics
+ba:
+  uuid: 317acca9ef9255b934e46371e471431d
+
+# google analytics
+ga:
+  id: UA-73784599-1
+
+# Build settings
+encoding: "utf-8"
+
+# other settings
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
