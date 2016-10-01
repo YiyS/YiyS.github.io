@@ -4,7 +4,7 @@ title:  "A way to perl"
 date:   2016-10-1
 desc: "Hello, perl!"
 keywords: "perl"
-categories: [perl]
+categories: [Perl]
 tags: [perl]
 icon: icon-perl
 ---
