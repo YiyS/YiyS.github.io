@@ -39,6 +39,33 @@ print "I went to store with \$name\n";
 print "I went to store with $name\n";
 ```````
 
+## 列表
+
+```
+@list1=qw(apples oranges 45.6 $x);
+print "@list1\n";
+print "$list1[0]\n";
+print "$list1[3]\n";
+
+@list2=(1,2,3,4);
+print "@list2\n";
+@list3=(1..4);
+print "@list3\n";
+@list4=(1..4,5,6,10..18);
+print "@list4\n";
+
+$scalar="what?";
+@list5=($scalar,@list1,5);
+print "@list5\n";
+print "$#list5\n";
+$size=@list5;
+print "$size\n";
+
+foreach $component(@list5){
+  print "$component\n"
+}
+``````````
+
 ## 运算符
 
 ### 引号运算符
